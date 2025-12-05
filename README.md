@@ -25,7 +25,7 @@ Ini adalah pengatur lalu lintas data.
 * **Penjelasan:** Kelas `PosApp` berfungsi menggabungkan (wiring) Repository, Service, dan Payment.
 * **Dependency Injection:** Perhatikan bahwa `PosApp` tidak membuat objek `CashPayment` sendiri (tidak ada `new CashPayment()` di dalam kelas). Objek tersebut "disuntikkan" dari luar melalui constructor. Ini membuat aplikasi *Loosely Coupled* (tidak saling terikat keras).
 
-
+<br>
 
 ## Deskripsi Proyek Tugas Mandiri
 Proyek ini adalah penyelesaian **Tugas Mandiri**.
