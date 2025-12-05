@@ -7,20 +7,20 @@ Repository ini berisi hasil pengerjaan **Langkah-Langkah Praktikum**.
 Program ini adalah simulasi sederhana dari sistem kasir (POS) yang menggunakan arsitektur Multi-Component (Model, Repository, Service, Orchestrator).
 
 ## Struktur File
-## 1. Lapisan Data Model (`models.py`)
+## 1. Data Model (`models.py`)
 Ini adalah lapisan paling dasar. File ini tidak memiliki logika bisnis, hanya berfungsi mendefinisikan "bentuk" data.
 * **Penjelasan:** Saya menggunakan `@dataclass` untuk membuat objek `Product` dan `CartItem` agar kode lebih bersih dan hemat memori.
 
-## 2. Lapisan Akses Data (`repositories.py`)
+## 2. Akses Data (`repositories.py`)
 Komponen ini bertugas seolah-olah mengambil data dari Database.
 * **Penjelasan:** `ProductRepository` menyembunyikan detail darimana data berasal. `main_app.py` tidak perlu tahu apakah data dari Array atau SQL, ia cukup memanggil `.get_all()`.
 
-## 3. Lapisan Logika Bisnis (`services.py`)
+## 3. Bisnis (`services.py`)
 Ini adalah "otak" dari aplikasi. Semua perhitungan dan aturan bisnis terjadi di sini.
 * **CartService:** Mengurus logika keranjang (tambah barang, hitung subtotal, hapus barang).
 * **PaymentService:** Pada Versi C ini, saya mengimplementasikan `CashPayment` yang mewarisi interface `IPaymentProcessor`. Ini memastikan sistem siap menerima metode bayar lain di masa depan (persiapan untuk OCP).
 
-## 4. Lapisan Orchestrator (`main_app.py`)
+## 4. Orchestrator (`main_app.py`)
 Ini adalah pengatur lalu lintas data.
 * **Penjelasan:** Kelas `PosApp` berfungsi menggabungkan (wiring) Repository, Service, dan Payment.
 * **Dependency Injection:** Perhatikan bahwa `PosApp` tidak membuat objek `CashPayment` sendiri (tidak ada `new CashPayment()` di dalam kelas). Objek tersebut "disuntikkan" dari luar melalui constructor. Ini membuat aplikasi *Loosely Coupled* (tidak saling terikat keras).
@@ -48,7 +48,9 @@ Saya mengubah cara injeksi dependensi pada `main_app.py` tanpa menyentuh logika 
 * **Hasil:** `PosApp` tidak perlu diedit sama sekali untuk menerima metode pembayaran baru.
 
 ## Struktur File
-* `models.py`: Data Class untuk Produk dan Item Keranjang.
-* `repositories.py`: Simulasi Database Produk.
-* `services.py`: Berisi logika `CartService` dan class baru `DebitCardPayment`.
-* `main_app.py`: Aplikasi utama dengan Loop CLI dan Wiring Dependency.
+| Nama File | Perubahan dari Versi C |
+| :--- | :--- |
+| `main_app.py` | Ditambahkan Loop CLI, Menu Interaktif, dan Wiring `DebitCardPayment`. |
+| `services.py` | Ditambahkan class `DebitCardPayment` dengan output visual EDC. |
+| `models.py` | (Tetap) Struktur data Produk & Cart. |
+| `repositories.py` | (Tetap) Data dummy Produk. |
