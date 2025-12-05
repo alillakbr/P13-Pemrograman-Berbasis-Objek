@@ -6,18 +6,27 @@ Proyek ini adalah implementasi sistem kasir sederhana yang dibangun menggunakan 
 Repository ini berisi hasil pengerjaan **Langkah-Langkah Praktikum**.
 Program ini adalah simulasi sederhana dari sistem kasir (POS) yang menggunakan arsitektur Multi-Component (Model, Repository, Service, Orchestrator).
 
-Pada versi ini, implementasi murni mengikuti panduan modul:
-1.  Metode pembayaran hanya **Cash Payment**.
-2.  Tidak ada interaksi CLI (Loop), program berjalan sekali jalan (Test Run).
-
 ## Struktur File
-* `models.py`: Definisi data `Product` dan `CartItem`.
-* `repositories.py`: Data dummy produk.
-* `services.py`: Logika keranjang belanja dan implementasi `CashPayment`.
-* `main_app.py`: Orchestrator utama untuk menjalankan tes transaksi tunai.
+## 1. Lapisan Data Model (`models.py`)
+Ini adalah lapisan paling dasar. File ini tidak memiliki logika bisnis, hanya berfungsi mendefinisikan "bentuk" data.
+* **Penjelasan:** Saya menggunakan `@dataclass` untuk membuat objek `Product` dan `CartItem` agar kode lebih bersih dan hemat memori.
+
+## 2. Lapisan Akses Data (`repositories.py`)
+Komponen ini bertugas seolah-olah mengambil data dari Database.
+* **Penjelasan:** `ProductRepository` menyembunyikan detail darimana data berasal. `main_app.py` tidak perlu tahu apakah data dari Array atau SQL, ia cukup memanggil `.get_all()`.
+
+## 3. Lapisan Logika Bisnis (`services.py`)
+Ini adalah "otak" dari aplikasi. Semua perhitungan dan aturan bisnis terjadi di sini.
+* **CartService:** Mengurus logika keranjang (tambah barang, hitung subtotal, hapus barang).
+* **PaymentService:** Pada Versi C ini, saya mengimplementasikan `CashPayment` yang mewarisi interface `IPaymentProcessor`. Ini memastikan sistem siap menerima metode bayar lain di masa depan (persiapan untuk OCP).
+
+## 4. Lapisan Orchestrator (`main_app.py`)
+Ini adalah pengatur lalu lintas data.
+* **Penjelasan:** Kelas `PosApp` berfungsi menggabungkan (wiring) Repository, Service, dan Payment.
+* **Dependency Injection:** Perhatikan bahwa `PosApp` tidak membuat objek `CashPayment` sendiri (tidak ada `new CashPayment()` di dalam kelas). Objek tersebut "disuntikkan" dari luar melalui constructor. Ini membuat aplikasi *Loosely Coupled* (tidak saling terikat keras).
 
 ## Deskripsi Proyek Tugas Mandiri
-Proyek ini adalah penyelesaian **Tugas Mandiri** dari Modul 13.
+Proyek ini adalah penyelesaian **Tugas Mandiri**.
 Aplikasi ini merupakan pengembangan dari sistem POS dasar yang kini dilengkapi dengan fitur interaktif (CLI) dan metode pembayaran digital, menerapkan prinsip **SOLID** (OCP & DIP).
 
 ## Penyelesaian Challenge
