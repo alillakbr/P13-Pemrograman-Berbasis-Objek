@@ -2,6 +2,8 @@
 ## Deskripsi Proyek
 Proyek ini adalah implementasi sistem kasir sederhana yang dibangun menggunakan arsitektur **Multi-Component** dan pola desain **Dependency Injection (DI)**. Aplikasi ini memisahkan tanggung jawab antara Data (Repository), Logika Bisnis (Service), dan Kontrol UI (Orchestrator).
 
+---
+
 ## Deskripsi Langkah-Langkah Praktikum
 Repository ini berisi hasil pengerjaan **Langkah-Langkah Praktikum**.
 Program ini adalah simulasi sederhana dari sistem kasir (POS) yang menggunakan arsitektur Multi-Component (Model, Repository, Service, Orchestrator).
@@ -26,6 +28,7 @@ Ini adalah pengatur lalu lintas data.
 * **Dependency Injection:** Perhatikan bahwa `PosApp` tidak membuat objek `CashPayment` sendiri (tidak ada `new CashPayment()` di dalam kelas). Objek tersebut "disuntikkan" dari luar melalui constructor. Ini membuat aplikasi *Loosely Coupled* (tidak saling terikat keras).
 
 <br>
+---
 
 ## Deskripsi Proyek Tugas Mandiri
 Proyek ini adalah penyelesaian **Tugas Mandiri**.
