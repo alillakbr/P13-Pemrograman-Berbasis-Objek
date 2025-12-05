@@ -1,4 +1,4 @@
-# Simulasi Aplikasi POS (Point of Sales) - Modul 13
+# Simulasi Aplikasi POS (Point of Sales)
 ## Deskripsi Proyek
 Proyek ini adalah implementasi sistem kasir sederhana yang dibangun menggunakan arsitektur **Multi-Component** dan pola desain **Dependency Injection (DI)**. Aplikasi ini memisahkan tanggung jawab antara Data (Repository), Logika Bisnis (Service), dan Kontrol UI (Orchestrator).
 
